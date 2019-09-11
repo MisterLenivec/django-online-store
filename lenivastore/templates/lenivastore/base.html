@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=idge">
+  <link rel="stylesheet" href="{% static "lenivastore/css/bootstrap.min.css" %}">
+  <link rel="stylesheet" href="{% static "lenivastore/css/style.css" %}">
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+  <section id="header">
+    <div class="top container">
+      Онлайн-Магазин
+    </div>
+    <div class="top-bl">
+      <div class="container">
+        <div class="cart">Ваша корзина пуста</div>
+      </div>
+    </div>
+  </section>
+  <section id="content row" class="container">
+    {% block content %}{% endblock %}
+  </section>
+</body>
+</html>

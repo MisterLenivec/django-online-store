@@ -1,0 +1,26 @@
+{% extends "lenivastore/base.html" %}
+
+{% load static %}
+
+{% block title %}
+  {{ product.name }}
+{% endblock %}
+
+{% block content %}
+  <div class="product-detail">
+    <div class="col-sm-4">
+      <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static
+      "lenivastore/images/no-image.jpeg"%}{% endif %}" style="max-width: 400px; height: 400px;" class="img-responsive">
+    </div>
+    <div class="col-sm-8">
+      <h1>{{ product.name }}</h1>
+      <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+      <p class="price">
+        {{ product.price }} руб.
+      </p>
+      <span>
+        {{ product.description | linebreaks}}
+      </span>
+    </div>
+  </div>
+{% endblock %}

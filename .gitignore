@@ -1,0 +1,12 @@
+.idea
+*.log
+*.pot
+*.pyc
+local_settings.py
+/venv/
+/onstore/
+/media/
+
+# vim
+*.swp
+*.swo
