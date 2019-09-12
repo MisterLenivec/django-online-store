@@ -10,7 +10,7 @@
   <div class="product-detail">
     <div class="col-sm-4">
       <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static
-      "lenivastore/images/no-image.jpeg"%}{% endif %}" style="max-width: 400px; height: 400px;" class="img-responsive">
+      "images/no-image.jpeg" %}{% endif %}" style="max-width: 400px; height: 400px;" class="img-responsive">
     </div>
     <div class="col-sm-8">
       <h1>{{ product.name }}</h1>

@@ -26,7 +26,7 @@
       {% for product in products %}
         <div class="item col-sm-4">
           <a href="{{ product.get_absolute_url }}">
-            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "lenivastore/images/no-image.jpeg"%}{% endif %}" style="max-width: 200px; height: 200px;" class="img-responsive">
+            <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no-image.jpeg"%}{% endif %}" style="max-width: 200px; height: 200px;" class="img-responsive">
           </a>
           <br>
           <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
