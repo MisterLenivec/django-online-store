@@ -16,7 +16,20 @@
     </div>
     <div class="top-bl">
       <div class="container">
-        <div class="cart">Ваша корзина пуста</div>
+        <div class="cart">
+          {% with total_items=cart|length %}
+            {% if cart|length > 0 %}
+              Ваша корзина:
+              <a href="{% url 'cart:cart_detail' %}">
+                <!-- Избавиться от cart.get_total_price что бы не считалась
+                ПОСТОЯННО сумма? -->
+                {{ total_items }} тов. {{ cart.get_total_price }} руб.
+              </a>
+            {% else %}
+              Корзина пустая
+            {% endif %}
+          {% endwith %}
+        </div>
       </div>
     </div>
   </section>
