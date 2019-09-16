@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.core.mail import send_mail
+from django.conf import settings
+
 from .models import OrderItem
 from .forms import OrderCreateForm
 from cart.cart import Cart
@@ -16,8 +19,17 @@ def order_create(request):
                                          price=item['price'],
                                          quantity=item['quantity'])
             cart.clear()
+            send_mail('Lenivastore - Заказ Оформлен',
+                      'Войдите в админ панель, если хотите посмотреть '
+                      'свой заказ.\n'
+                      'Номер вашего заказа ' + str(order.id) + '.\n'
+                      'Спасибо за покупку.\n\n'
+                      'Lenivastore',
+                      settings.EMAIL_HOST_USER,
+                      [order.email],
+                      fail_silently=False)
             return render(request, 'orders/order/created.html', {'order': order})
-
-    form = OrderCreateForm()
+    else:
+        form = OrderCreateForm()
     return render(request, 'orders/order/create.html', {'cart': cart,
                                                         'form': form})
