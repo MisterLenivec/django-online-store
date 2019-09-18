@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=idge">
+  <title>Lenivastore</title>
+  <style type="text/css">
+   table {
+     border-spacing: 5px;
+   }
+   th {
+     background: #fcfcf7;
+   }
+  </style>
+</head>
+<body>
+  <div style="text-align: center;">
+    <h1>Ваш заказ номер {{ order.id }}</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Изображение</th>
+          <th>Продукт</th>
+          <th>Количество</th>
+          <th>Цена за штуку</th>
+          <th>Полная цена в категории</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart %}
+          <tr>
+            <td>
+              <a href="http://127.0.0.1:8000{{ item.product.get_absolute_url }}">
+                <img src="http://127.0.0.1:8000{{ item.product.image.url }}"
+                     style="max-width: 150px; height: 150px; alt="" />
+              </a>
+            </td>
+            <td>{{ item.product }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }}руб</td>
+            <td>{{ item.total_price }}руб</td>
+          </tr>
+        {% endfor %}
+          <tr>
+            <td>Total</td>
+            <td colspan="4"></td>
+            <td>Стоимость заказа {{ cart.get_total_price }}руб.</td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <p>Спасибо что сделали заказ, для просмотра информации зайдите в личный
+      кабинет пользователя.</p>
+    <p>Lenivastore</p>
+  </div>
+</body>
+</html>

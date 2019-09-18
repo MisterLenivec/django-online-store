@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.core.mail import send_mail
 from django.conf import settings
+from django.template.loader import render_to_string
+from django.core.mail import get_connection, EmailMultiAlternatives
 
 from .models import OrderItem
 from .forms import OrderCreateForm
@@ -19,15 +20,20 @@ def order_create(request):
                                          price=item['price'],
                                          quantity=item['quantity'])
             cart.clear()
-            send_mail('Lenivastore - Заказ Оформлен',
-                      'Войдите в админ панель, если хотите посмотреть '
-                      'свой заказ.\n'
-                      'Номер вашего заказа ' + str(order.id) + '.\n'
-                      'Спасибо за покупку.\n\n'
-                      'Lenivastore',
-                      settings.EMAIL_HOST_USER,
-                      [order.email],
-                      fail_silently=False)
+            context = {'cart': cart, 'order': order}
+            connection = get_connection()
+            connection.open()
+
+            html_content = render_to_string('orders/order/mail.html',
+                                            context)
+            text_content = render_to_string('orders/order/mail.txt', context)
+            msg = EmailMultiAlternatives('Lenivastore - Заказ Оформлен',
+                                         text_content, settings.EMAIL_HOST_USER,
+                                         [order.email], connection=connection)
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+
+            connection.close()  # Cleanup
             return render(request, 'orders/order/created.html', {'order': order})
     else:
         form = OrderCreateForm()

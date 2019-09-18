@@ -1,0 +1,8 @@
+Ваш заказ номер {{ order.id }}
+{% for item in cart %}
+  * {{ item.product }} | {{ item.quantity }}шт. | {{ item.price }}руб. | Общая цена {{ item.total_price }}руб.
+{% endfor %}
+Стоимость заказа {{ cart.get_total_price }} руб.
+
+Спасибо что сделали заказ, для просмотра информации зайдите в личный кабинет пользователя.
+Lenivastore
