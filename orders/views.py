@@ -1,11 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.core.mail import get_connection, EmailMultiAlternatives
+from django.urls import reverse
 
 from .models import OrderItem
 from .forms import OrderCreateForm
 from cart.cart import Cart
+
+
+context = {}
 
 
 def order_create(request):
@@ -20,22 +24,27 @@ def order_create(request):
                                          price=item['price'],
                                          quantity=item['quantity'])
             cart.clear()
-            context = {'cart': cart, 'order': order}
-            connection = get_connection()
-            connection.open()
-
-            html_content = render_to_string('orders/order/mail.html',
-                                            context)
-            text_content = render_to_string('orders/order/mail.txt', context)
-            msg = EmailMultiAlternatives('Lenivastore - Заказ Оформлен',
-                                         text_content, settings.EMAIL_HOST_USER,
-                                         [order.email], connection=connection)
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
-
-            connection.close()  # Cleanup
-            return render(request, 'orders/order/created.html', {'order': order})
+            context.update({'cart': cart, 'order': order})
+            request.session['order_id'] = order.id
+            return redirect(reverse('payment:process'))
     else:
         form = OrderCreateForm()
     return render(request, 'orders/order/create.html', {'cart': cart,
                                                         'form': form})
+
+
+def order_created():
+    connection = get_connection()
+    connection.open()
+
+    html_content = render_to_string('orders/order/mail.html',
+                                    context)
+    text_content = render_to_string('orders/order/mail.txt', context)
+    msg = EmailMultiAlternatives('Lenivastore - Заказ Оформлен',
+                                 text_content, settings.EMAIL_HOST_USER,
+                                 [context['order'].email], connection=connection)
+    msg.attach_alternative(html_content, "text/html")
+    mail_send = msg.send()
+
+    connection.close()  # Cleanup
+    return mail_send
