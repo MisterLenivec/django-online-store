@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 from django.shortcuts import render, redirect, get_object_or_404
+=======
+from django.shortcuts import render, redirect
+>>>>>>> master
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.core.mail import get_connection, EmailMultiAlternatives
 from django.urls import reverse
+<<<<<<< HEAD
 from django.contrib.admin.views.decorators import staff_member_required
+=======
+>>>>>>> master
 
 from .models import OrderItem, Order
 from .forms import OrderCreateForm
@@ -49,9 +56,12 @@ def order_created():
 
     connection.close()  # Cleanup
     return mail_send
+<<<<<<< HEAD
 
 
 @staff_member_required
 def admin_order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     return render(request, 'admin/orders/order/detail.html', {'order': order})
+=======
+>>>>>>> master
