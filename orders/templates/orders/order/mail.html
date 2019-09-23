@@ -14,46 +14,55 @@
    }
   </style>
 </head>
-<body>
-  <div style="text-align: center;">
-    <h1>Ваш заказ номер {{ order.id }}</h1>
-    <table>
+<body style="font-family: sans-serif, serif, monospace;">
+    <h1>Онлайн-магазин</h1>
+    <p>
+      Номер заказа: <b>{{ order.id }}</b> <br>
+      <span class="secondary">
+        {{ order.created }}
+      </span>
+    </p>
+    <h3>Покупатель</h3>
+    <p>
+      {{ order.first_name }} {{ order.last_name }}<br>
+      {{ order.email }} <br>
+      {{ order.address }} <br>
+      {{ order.postal_code }}, {{ order.city }}
+    </p>
+    <h3>Купленные товары</h3>
+    <table class="table" style="text-align: center;">
       <thead>
         <tr>
           <th>Изображение</th>
-          <th>Продукт</th>
+          <th>Товар</th>
+          <th>Стоймость</th>
           <th>Количество</th>
-          <th>Цена за штуку</th>
-          <th>Полная цена в категории</th>
+          <th>Всего</th>
         </tr>
       </thead>
       <tbody>
-        {% for item in cart %}
-          <tr>
+        {% for item in order.items.all %}
+          <tr class="row{% cycle '1' '2' %}">
             <td>
               <a href="http://127.0.0.1:8000{{ item.product.get_absolute_url }}">
                 <img src="http://127.0.0.1:8000{{ item.product.image.url }}"
                      style="max-width: 150px; height: 150px; alt="" />
               </a>
             </td>
-            <td>{{ item.product }}</td>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.price }}руб.</td>
             <td>{{ item.quantity }}</td>
-            <td>{{ item.price }}руб</td>
-            <td>{{ item.total_price }}руб</td>
+            <td>{{ item.get_cost }}руб.</td>
           </tr>
         {% endfor %}
-          <tr>
-            <td>Total</td>
-            <td colspan="4"></td>
-            <td>Стоимость заказа {{ cart.get_total_price }}руб.</td>
-          </tr>
+        <tr class="total" style="text-align: left;">
+          <td colspan="3">Всего:</td>
+          <td class="num">{{ order.get_total_cost }}руб.</td>
+        </tr>
       </tbody>
     </table>
-  </div>
-  <div>
-    <p>Спасибо что сделали заказ, для просмотра информации зайдите в личный
-      кабинет пользователя.</p>
-    <p>Lenivastore</p>
-  </div>
-</body>
+    <span class="{% if order.paid %}paid{% else %}pending{% endif %}">
+      {% if order.paid %}Оплачен{% else %}Не оплачен{% endif %}
+    </span>
+  </body>
 </html>

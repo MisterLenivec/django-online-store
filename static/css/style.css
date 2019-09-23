@@ -1,0 +1,107 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&subset=cyrillic'
+body{
+  font-size: 15px;
+  font-family: 'Open Sans', sans-serif;
+}
+.top{
+  padding: 20px 0;
+  font-size: 25px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.top-bl{
+  background: #bebebe;
+  padding: 15px;
+}
+.top-bl .cart{
+  float: right;
+}
+#sidebar ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 20px;
+}
+#sidebar ul li{
+  padding: 5px 10px;
+}
+#sidebar ul li.selected{
+  background: #0095ff;
+  color: white;
+  border-radius: 3px;
+}
+#sidebar ul li.selected a{
+  color: white;
+}
+.items{
+  margin-top: 20px;
+}
+.item{
+  text-align: center;
+  margin-bottom: 30px;
+}
+.item a img{
+  margin-bottom: 15px;
+}
+.product-detail{
+  margin-top: 40px;
+}
+.price{
+  font-weight: 600;
+  font-size: 20px;
+}
+.product-detail h2{
+  font-size: 18px;
+}
+form.add{
+  margin-bottom: 10px;
+}
+form.add label{
+  margin-right: 10px;
+}
+#id_quantity{
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+form.add input[type="submit"]{
+  background: #2a6496;
+  border-radius: 3px;
+  border: 0;
+  padding: 5px 10px;
+  color: white;
+}
+.table-cart{
+  width: 100%;
+  margin: 10px 0;
+}
+.cart-img{
+  width: 10%;
+}
+th, td{
+  padding: 5px;
+}
+thead{
+  background: #2a6496;
+  color: white;
+}
+.btn{
+  background: #2a6496;
+  color: white;
+}
+.btn-light{
+  background: #808080;
+}
+.order-info h2{
+  margin-bottom: 20px;
+}
+.order-form{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.order-form label{
+  display: block;
+}
+.order-form input{
+  width: 100%;
+  padding: 5px 10px;
+}
