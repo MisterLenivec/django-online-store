@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 
 from lenivastore.models import Product
+from cupons.forms import CuponApllyForm
 from .cart import Cart
 from .forms import CartAddProductForm
 
@@ -33,4 +34,6 @@ def cart_detail(request):
                 'quantity': item['quantity'],
                 'update': True
             })
-    return render(request, 'cart/detail.html', {'cart': cart})
+    cupon_apply_form = CuponApllyForm()
+    return render(request, 'cart/detail.html',
+                  {'cart': cart, 'cupon_apply_form': cupon_apply_form})

@@ -41,13 +41,33 @@
           </tr>
         {% endwith %}
       {% endfor %}
+        {% if cart.cupon %}
+          <tr class="subtotal">
+            <td>Сумма без скидки</td>
+            <td colspan="4"></td>
+            <td>{{ cart.get_total_price }}</td>
+          </tr>
+          <tr>
+            <td>
+              "{{ cart.cupon.code }}" купон на ({{ cart.cupon.discount }} % ниже)
+            </td>
+            <td colspan="4"></td>
+            <td class="num discount">- {{ cart.get_discount|floatformat:"2" }} руб.</td>
+          </tr>
+        {% endif %}
         <tr class="total">
-          <td>Total</td>
+          <td>Всего</td>
           <td colspan="4"></td>
-          <td class="num">{{ cart.get_total_price }} руб.</td>
+          <td class="num">{{ cart.get_total_price_after_discount|floatformat:"2" }} руб.</td>
         </tr>
     </tbody>
   </table>
+  <p>Применить купон</p>
+    <form action="{% url 'cupon:apply' %}" method="post" class="add">
+      {% csrf_token %}
+      {{ cupon_apply_form }}
+      <input type="submit" value="Обновить">
+  </form>
   <p class="text-right">
     <a href="{% url 'lenivastore:product_list'%}" class="btn">Продолжить Шопинг</a>
     <a href="{% url 'orders:order_create' %}" class="btn">Оформить заказ</a>
