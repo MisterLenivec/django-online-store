@@ -23,6 +23,13 @@
           {{ item.product.name }} | Количество: {{ item.quantity }} | Цена: {{ item.total_price }}
         </li>
       {% endfor %}
+      {% if cart.cupon %}
+        <li>
+          "{{ cart.cupon.code }}" (на {{ cart.cupon.discount }}% меньше)
+          <span> - {{ cart.get_discount|floatformat:"2"}} руб.</span>
+        </li>
+      {% endif %}
     </ul>
+    <p><strong>Всего:</strong> {{ cart.get_total_price_after_discount|floatformat:"2"}} руб.</p>
   </div>
 {% endblock %}
