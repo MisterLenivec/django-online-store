@@ -55,6 +55,23 @@
             <td>{{ item.get_cost }}руб.</td>
           </tr>
         {% endfor %}
+        {% if cart.cupon %}
+            "{{ cart.cupon.code }}" купон на ({{ cart.cupon.discount }} % ниже)
+        {% endif %}
+        {% if order.cupon %}
+          <tr class="subtotal">
+            <td>Сумма без скидки</td>
+            <td colspan="2"></td>
+            <td>{{ order.get_total_cost_no_sale }}</td>
+          </tr>
+          <tr>
+            <td>
+              "{{ order.cupon.code }}" купон на ({{ order.cupon.discount }} % ниже)
+            </td>
+            <td colspan="2"></td>
+            <td class="num discount">- {{ order.get_order_discount|floatformat:"2" }} руб.</td>
+          </tr>
+        {% endif %}
         <tr class="total" style="text-align: left;">
           <td colspan="3">Всего:</td>
           <td class="num">{{ order.get_total_cost }}руб.</td>

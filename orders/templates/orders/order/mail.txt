@@ -11,6 +11,12 @@
 {% for item in order.items.all %}
   * {{ item.product.name }} | {{ item.quantity }}шт. | {{ item.price }}руб. | Общая цена {{ item.get_cost }}руб.
 {% endfor %}
+
+{% if order.cupon %}
+    Сумма без скидки {{ order.get_total_cost_no_sale }}
+    {{ order.cupon.code }} купон на ({{ order.cupon.discount }} % ниже) {{ order.get_order_discount|floatformat:"2" }}руб.
+{% endif %}
+
 Стоимость заказа {{ order.get_total_cost }}руб.
 
 Спасибо что сделали заказ, к email сообщению прикреплен PDF файл с информацией о вашем заказе.

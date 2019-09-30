@@ -10,6 +10,7 @@ import weasyprint
 from io import BytesIO
 
 from orders.models import Order
+from cart.cart import Cart
 
 
 def payment_process(request):
@@ -43,10 +44,12 @@ def payment_done(request):
     connection.open()
 
     subject = 'Lenivastore - Заказ номер {} оформлен'.format(order.id)
-    message = render_to_string('orders/order/mail.txt', {'order': order})
+    message = render_to_string('orders/order/mail.txt',
+                               {'order': order})
     html_content = render_to_string('orders/order/mail.html',
                                     {'order': order})
-    html = render_to_string('orders/order/pdf.html', {'order': order})
+    html = render_to_string('orders/order/pdf.html',
+                            {'order': order})
     out = BytesIO()
     weasyprint.HTML(string=html).write_pdf(out,
                             stylesheets=[weasyprint.CSS(

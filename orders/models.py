@@ -33,6 +33,12 @@ class Order(models.Model):
         total_cost = sum(item.get_cost() for item in self.items.all())
         return total_cost - total_cost * (self.discount / Decimal('100'))
 
+    def get_total_cost_no_sale(self):
+        return sum(item.get_cost() for item in self.items.all())
+
+    def get_order_discount(self):
+        return self.get_total_cost_no_sale() - self.get_total_cost()
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items',

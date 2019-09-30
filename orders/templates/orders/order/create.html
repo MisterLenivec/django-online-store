@@ -25,6 +25,10 @@
       {% endfor %}
       {% if cart.cupon %}
         <li>
+          Сумма без скидки:
+          <span> - {{ cart.get_total_price }}руб.</span>
+        </li>
+        <li>
           "{{ cart.cupon.code }}" (на {{ cart.cupon.discount }}% меньше)
           <span> - {{ cart.get_discount|floatformat:"2"}} руб.</span>
         </li>
