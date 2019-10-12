@@ -79,7 +79,13 @@
       </tbody>
     </table>
     <span class="{% if order.paid %}paid{% else %}pending{% endif %}">
-      {% if order.paid %}Оплачен{% else %}Не оплачен{% endif %}
+      {% if order.paid == False and order.card_paid == False %}
+        Оплата при получении
+      {% elif order.paid %}
+        Оплачен
+      {% else %}
+        Не оплачен
+      {% endif %}
     </span>
   </body>
 </html>

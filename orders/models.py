@@ -15,6 +15,7 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
+    card_paid = models.BooleanField(default=True)
     cupon = models.ForeignKey(Cupon, related_name='orders', null=True,
                               blank=True, on_delete=models.CASCADE)
     discount = models.IntegerField(default=0, validators=[MinValueValidator(0),

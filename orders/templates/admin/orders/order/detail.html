@@ -45,7 +45,15 @@
     </tr>
     <tr>
       <th>Статус</th>
-      <td>{% if order.paid %}Оплачен{% else %}В ожидании оплаты{% endif %}</td>
+      <td>
+        {% if order.paid == False and order.card_paid == False %}
+          Оплата при получении
+        {% elif order.paid %}
+          Оплачен
+        {% else %}
+          Не оплачен
+        {% endif %}
+      </td>
     </tr>
   </table>
 

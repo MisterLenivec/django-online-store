@@ -10,7 +10,6 @@ import weasyprint
 from io import BytesIO
 
 from orders.models import Order
-from cart.cart import Cart
 
 
 def payment_process(request):

@@ -1,6 +1,10 @@
-<html>
-  <body style="font-family: sans-serif, serif, monospace;">
-    <h1>Онлайн-магазин</h1>
+{% extends "lenivastore/base.html" %}
+
+{% block title %}Заказ принят в обработку{% endblock %}
+
+{% block content %}
+    <h1>Заказ принят в обработку</h1>
+    <p>Благодарим вас за заказ!</p>
     <p>
       Номер заказа: <b>{{ order.id }}</b> <br>
       <span class="secondary">
@@ -14,8 +18,8 @@
       {{ order.address }} <br>
       {{ order.postal_code }}, {{ order.city }}
     </p>
-    <h3>Купленные товары</h3>
-    <table class="table">
+    <h3>Заказанные товары</h3>
+    <table class="table" style="text-align: center;">
       <thead>
         <tr>
           <th>Изображение</th>
@@ -31,7 +35,7 @@
             <td>
               <a href="http://127.0.0.1:8000{{ item.product.get_absolute_url }}">
                 <img src="http://127.0.0.1:8000{{ item.product.image.url }}"
-                     style="max-width: 75px; height: 75px; alt="" />
+                     style="max-width: 150px; height: 150px; alt="" />
               </a>
             </td>
             <td>{{ item.product.name }}</td>
@@ -40,6 +44,9 @@
             <td>{{ item.get_cost }}руб.</td>
           </tr>
         {% endfor %}
+        {% if cart.cupon %}
+            "{{ cart.cupon.code }}" купон на ({{ cart.cupon.discount }} % ниже)
+        {% endif %}
         {% if order.cupon %}
           <tr class="subtotal">
             <td>Сумма без скидки</td>
@@ -54,20 +61,11 @@
             <td class="num discount">- {{ order.get_order_discount|floatformat:"2" }} руб.</td>
           </tr>
         {% endif %}
-        <tr class="total">
+        <tr class="total" style="text-align: left;">
           <td colspan="3">Всего:</td>
           <td class="num">{{ order.get_total_cost }}руб.</td>
         </tr>
       </tbody>
     </table>
-    <span class="{% if order.paid %}paid{% else %}pending{% endif %}">
-      {% if order.paid == False and order.card_paid == False %}
-        Оплата при получении
-      {% elif order.paid %}
-        Оплачен
-      {% else %}
-        Не оплачен
-      {% endif %}
-    </span>
-  </body>
-</html>
+    <span>Оплата при получении</span>
+{% endblock %}

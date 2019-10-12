@@ -19,5 +19,13 @@
 
 Стоимость заказа {{ order.get_total_cost }}руб.
 
+{% if order.paid == False and order.card_paid == False %}
+  Оплата при получении
+{% elif order.paid %}
+  Оплачен
+{% else %}
+  Не оплачен
+{% endif %}
+
 Спасибо что сделали заказ, к email сообщению прикреплен PDF файл с информацией о вашем заказе.
 Lenivastore

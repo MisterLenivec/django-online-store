@@ -70,6 +70,8 @@
   </form>
   <p class="text-right">
     <a href="{% url 'lenivastore:product_list'%}" class="btn">Продолжить Шопинг</a>
-    <a href="{% url 'orders:order_create' %}" class="btn">Оформить заказ</a>
+    {% if cart.get_total_price %}
+      <a href="{% url 'orders:order_create' %}" class="btn">Оформить заказ</a>
+    {% endif %}
   </p>
 {% endblock %}
