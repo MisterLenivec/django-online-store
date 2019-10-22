@@ -31,9 +31,24 @@
           {% endwith %}
         </div>
       </div>
+      {% if user.is_authenticated %}
+        <li>User: {{ user.get_username }}</li>
+        <li><a href="{% url 'profile' %}?next={{request.path}}">Profile</a></li>
+        <li><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
+      {% else %}
+        <li><a href="{% url 'login' %}?next={{request.path}}">Login</a></li>
+        <li><a href="{% url 'register' %}?next={{request.path}}">Register</a></li>
+      {% endif %}
     </div>
   </section>
   <section id="content row" class="container">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
     {% block content %}{% endblock %}
   </section>
 </body>
