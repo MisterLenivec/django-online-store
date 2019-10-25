@@ -4,8 +4,11 @@ from cupons.models import Cupon
 from decimal import Decimal
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 class Order(models.Model):
+    phone_order = PhoneNumberField(blank=False)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()
@@ -15,6 +18,7 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
+    order_processed = models.BooleanField(default=False, verbose_name='OP')
     card_paid = models.BooleanField(default=True)
     cupon = models.ForeignKey(Cupon, related_name='orders', null=True,
                               blank=True, on_delete=models.CASCADE)

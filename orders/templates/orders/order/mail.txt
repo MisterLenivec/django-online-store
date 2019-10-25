@@ -3,6 +3,7 @@
 
 Покупатель
 {{ order.first_name }} {{ order.last_name }}<br>
+{{ order.phone_order }} <br>
 {{ order.email }} <br>
 {{ order.address }} <br>
 {{ order.postal_code }}, {{ order.city }}

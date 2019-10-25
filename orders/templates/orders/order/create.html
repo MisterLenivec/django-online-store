@@ -1,5 +1,7 @@
 {% extends "lenivastore/base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
   Оформление заказа
 {% endblock %}
@@ -9,8 +11,8 @@
   <div class="col-sm-4">
     <h2>Заполните форму</h2>
     <form class="order-form" action="." method="post">
-      {{ form.as_p }}
       {% csrf_token %}
+      {{ form|crispy }}
       <input type="submit" value="Отправить">
     </form>
   </div>

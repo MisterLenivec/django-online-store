@@ -28,8 +28,24 @@
       <td>{{ order.created }}</td>
     </tr>
     <tr>
+      <th>Заказ обработан?</th>
+      {% if order.order_processed %}
+        <td>Обработан</td>
+      {% else %}
+        <td>Не обработан</td>
+      {% endif %}
+    </tr>
+    <tr>
+      <th>Последняя обработка</th>
+      <td>{{ order.updated }}</td>
+    </tr>
+    <tr>
       <th>Заказчик</th>
       <td>{{ order.first_name }} {{ order.last_name }}</td>
+    </tr>
+    <tr>
+      <th>Указанный телефон</th>
+      <td>{{ order.phone_order }}</td>
     </tr>
     <tr>
       <th>E-mail</th>
@@ -38,6 +54,10 @@
     <tr>
       <th>Адрес</th>
       <td>{{ order.address }}</td>
+    </tr>
+    <tr>
+      <th>Почтовый код</th>
+      <td>{{ order.postal_code }}</td>
     </tr>
     <tr>
       <th>Полная стоймость</th>

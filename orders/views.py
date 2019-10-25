@@ -37,7 +37,7 @@ def order_create(request):
             else:
                 return offline_paid(request, cart)
     else:
-        form = OrderCreateForm()
+        form = OrderCreateForm(instance=request.user)
     return render(request, 'orders/order/create.html', {'cart': cart,
                                                         'form': form})
 
