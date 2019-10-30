@@ -1,5 +1,6 @@
 {% extends "lenivastore/base.html" %}
 
+{% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
   <div class="content-section">
@@ -21,5 +22,32 @@
         <button class="btn btn-outline-info" type="submit">Update</button>
       </div>
     </form>
+    <table>
+      <h2>Заказанные товары</h2>
+      <thead>
+        <tr>
+          <th>Изображение</th>
+          <th>Название товара</th>
+          <th>Количество</th>
+          <th>Дата заказа</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+          {% for item in order.items.all %}
+            <tr class="row{% cycle '1' '2' %}">
+              <td>
+                <a href="{{ item.product.get_absolute_url }}">
+                  <img src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static 'images/no-image.jpeg'%}{% endif %}" style="max-width: 100px; height: 100px;" class="img-responsive">
+                </a>
+              </td>
+              <td>{{ item.product.name }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.order.created }}</td>
+            </tr>
+          {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 {% endblock content %}

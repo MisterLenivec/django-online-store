@@ -1,7 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+
+from orders.models import Order, OrderItem
+from lenivastore.models import Product
 
 
 def register(request):
@@ -34,10 +37,16 @@ def profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
+        a = Order.objects.filter(email=request.user.email, order_processed=True)
+        orders = []
+        for i in range(len(a)):
+            orders.append(get_object_or_404(Order, id=a[i].id))
+        # order = order.items.all()
 
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'orders': orders
     }
 
     return render(request, 'users/profile.html', context)
