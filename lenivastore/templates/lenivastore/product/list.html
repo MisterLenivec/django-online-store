@@ -23,7 +23,7 @@
   <div id="main" class="product_list col-sm-9">
     <h1>{% if category %}{{ category.name }}{% else %}Товары{% endif %}</h1>
     <div class="items row">
-      {% for product in products %}
+      {% for product in page_object.object_list %}
         <div class="item col-sm-4">
           <a href="{{ product.get_absolute_url }}">
             <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no-image.jpeg"%}{% endif %}" style="max-width: 200px; height: 200px;" class="img-responsive">
@@ -35,5 +35,82 @@
       {% endfor %}
     </div>
   </div>
+<!--  {% if is_paginated %}-->
+<!--    <nav aria-label="...">-->
+<!--      <ul class="pagination">-->
+<!--        <li class="page-item {% if not prev_url %} disabled {% endif %}">-->
+<!--          <a class="page-link" href="{{ prev_url }}" tabindex="-1" aria-disabled="true">-->
+<!--            Previous-->
+<!--          </a>-->
+<!--        </li>-->
+
+<!--        {% for n in page_object.paginator.page_range %}-->
+<!--          {% if page_object.number == n  %}-->
+<!--            <li class="page-item active" aria-current="page">-->
+<!--              <a class="page-link" href="?page={{ n }}">{{ n }}-->
+<!--                <span class="sr-only">(current)</span>-->
+<!--              </a>-->
+<!--            </li>-->
+<!--          {% elif n > page_object.number|add:-3 and n < page_object.number|add:3 %}-->
+<!--            <li class="page-item">-->
+<!--              <a class="page-link" href="?page={{ n }}">{{ n }}</a>-->
+<!--            </li>-->
+<!--          {% endif %}-->
+<!--        {% endfor %}-->
+
+<!--        <li class="page-item {% if not next_url %} disabled {% endif %}">-->
+<!--          <a class="page-link" href="{{ next_url }}" tabindex="-1" aria-disabled="true">-->
+<!--            Next-->
+<!--          </a>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </nav>-->
+<!--  {% endif %}-->
+
+<!--  {% if is_paginated %}-->
+<!--    {% if page_object.has_previous %}-->
+<!--      <a class="btn btn-outline-info mb-4" href="?page=1">First</a>-->
+<!--    {% endif %}-->
+<!--    <a class="btn btn-outline-info mb-4 {% if not prev_url %} disabled {% endif %}"-->
+<!--         href="{{ prev_url }}" tabindex="-1" aria-disabled="true">Previous</a>-->
+
+<!--    {% for n in page_object.paginator.page_range %}-->
+<!--      {% if page_object.number == n %}-->
+<!--        <a class="btn btn-info mb-4 {% if not prev_url or not next_url %} disabled {% endif %}"-->
+<!--           href="?page={{ n }}">{{ n }}</a>-->
+<!--      {% elif n > page_object.number|add:-3 and n < page_object.number|add:3 %}-->
+<!--        <a class="btn btn-outline-info mb-4" href="?page={{ n }}">{{ n }}</a>-->
+<!--      {% endif %}-->
+<!--    {% endfor %}-->
+
+<!--    <a class="btn btn-outline-info mb-4 {% if not next_url %} disabled {% endif %}"-->
+<!--       href="{{ next_url }}" tabindex="-1" aria-disabled="true">Next</a>-->
+<!--    {% if page_object.has_next %}-->
+<!--      <a class="btn btn-outline-info mb-4" href="?page={{ page_object.paginator.num_pages }}">Last</a>-->
+<!--    {% endif %}-->
+<!--  {% endif %}-->
+
+{% if is_paginated %}
+
+  {% if page_object.has_previous %}
+    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_object.previous_page_number }}">Previous</a>
+  {% endif %}
+
+  {% for num in page_object.paginator.page_range %}
+    {% if page_object.number == num %}
+      <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > page_object.number|add:'-3' and num < page_object.number|add:'3' %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if page_object.has_next %}
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_object.next_page_number }}">Next</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ page_object.paginator.num_pages }}">Last</a>
+  {% endif %}
+
+{% endif %}
+
 {% endblock %}</code>
 </pre>

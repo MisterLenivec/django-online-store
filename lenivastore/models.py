@@ -34,6 +34,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=100, db_index=True)
     description = models.TextField(blank=True)  # Empty value
+    features = models.TextField(blank=True)  # Empty value
     price = models.DecimalField(max_digits=10, decimal_places=2)
     available = models.BooleanField(default=True)
     stock = models.PositiveIntegerField()
