@@ -1,0 +1,28 @@
+{% extends "lenivastore/base.html" %}
+
+{% load static %}
+{% block content %}
+  <div class="content-section">
+    <div class="col-sm-4">
+      <a href="{{request.META.HTTP_REFERER}}">Назад</a>
+    </div>
+    <legend class="border-bottom mb-4">
+      Добавьте или измените номер телефона и изображение профиля
+    </legend>
+    <div class="media">
+      <img class="account-img" src="{{ user.profile.image.url }}">
+      <div class="media-body">
+        <h2 class="account-heading">{{ user.username }}</h2>
+      </div>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        {{ p_form.as_p }}
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Update</button>
+      </div>
+    </form>
+  </div>
+{% endblock content %}

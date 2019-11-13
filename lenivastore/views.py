@@ -5,22 +5,6 @@ from .models import Category, Product
 from cart.forms import CartAddProductForm
 
 
-# def product_list(request, category_slug=None):
-#     category = None
-#     categories = Category.objects.all()
-#     products = Product.objects.filter(available=True)
-#     if category_slug:
-#         category = get_object_or_404(Category, slug=category_slug)
-#         products = products.filter(category=category)
-#
-#     context = {
-#         'category': category,
-#         'categories': categories,
-#         'products': products
-#     }
-#     return render(request, 'lenivastore/product/list.html', context)
-
-
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
@@ -29,7 +13,7 @@ def product_list(request, category_slug=None):
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
 
-    paginator = Paginator(products, 1)
+    paginator = Paginator(products, 6)
 
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
@@ -53,7 +37,7 @@ def product_list(request, category_slug=None):
         # 'prev_url': prev_url,
         'category': category,
         'categories': categories,
-        # 'products': products
+        'products': products
     }
     return render(request, 'lenivastore/product/list.html', context)
 

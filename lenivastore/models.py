@@ -1,6 +1,7 @@
 import os
 from django.db import models
 from django.urls import reverse
+from django.template.defaultfilters import slugify
 
 
 class Category(models.Model):
@@ -53,3 +54,7 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('lenivastore:product_detail', args=[self.id, self.slug])
+
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.brand_name)
+    #     super(Brand, self).save(*args, **kwargs)

@@ -3,8 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
-from orders.models import Order, OrderItem
-from lenivastore.models import Product
+from orders.models import Order
 
 
 def register(request):
@@ -23,30 +22,45 @@ def register(request):
 
 @login_required
 def profile(request):
+
+    return render(request, 'users/profile.html')
+
+
+@login_required
+def change_phone_or_image(request):
     if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=request.user)
+        # u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
                                    request.FILES,
                                    instance=request.user.profile)
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
+        if p_form.is_valid(): # and u_form.is_valid():
+            # u_form.save()
             p_form.save()
             messages.success(request, f'Your account has been updated!')
-            return redirect('profile')
-
+            return redirect('users:profile')
     else:
-        u_form = UserUpdateForm(instance=request.user)
+        # u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
-        a = Order.objects.filter(email=request.user.email, order_processed=True)
-        orders = []
-        for i in range(len(a)):
-            orders.append(get_object_or_404(Order, id=a[i].id))
-        # order = order.items.all()
 
     context = {
-        'u_form': u_form,
+        # 'u_form': u_form,
         'p_form': p_form,
+    }
+
+    return render(request, 'users/change_phone_or_image.html', context)
+
+
+@login_required
+def page_ordered_goods(request):
+    user_orders = Order.objects.filter(email=request.user.email,
+                                       order_processed=True)
+    orders = []
+    for i in range(len(user_orders)):
+        orders.append(get_object_or_404(Order, id=user_orders[i].id))
+    # order = order.items.all()
+
+    context = {
         'orders': orders
     }
 
-    return render(request, 'users/profile.html', context)
+    return render(request, 'users/page_ordered_goods.html', context)

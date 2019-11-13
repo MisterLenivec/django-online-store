@@ -9,8 +9,10 @@
 {% block content %}
   <div class="product-detail">
     <div class="col-sm-4">
-      <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static
-      "images/no-image.jpeg" %}{% endif %}" style="max-width: 400px; height: 400px;" class="img-responsive">
+      <a href="{{request.META.HTTP_REFERER}}">Назад</a>
+    </div>
+    <div class="col-sm-4">
+      <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no-image.jpeg" %}{% endif %}" style="max-width: 400px; height: 400px;" class="img-responsive">
     </div>
     <div class="col-sm-8">
       <h1>{{ product.name }}</h1>
