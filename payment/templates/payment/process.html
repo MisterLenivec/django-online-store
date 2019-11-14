@@ -3,6 +3,31 @@
 {% block title %}Оплата PayPal{% endblock %}
 
 {% block content %}
-  <h1>Оплата PayPal</h1>
-  {{ form.render }}
+  <div>
+    <h1>Оплата PayPal</h1>
+    {{ form.render }}
+  </div>
+  <div>
+    <h1>Оплата картой или яндекс деньги</h1>
+<!--    <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">-->
+<!--      <input type="hidden" name="receiver" value="41001xxxxxxxxxxxx">-->
+<!--      <input type="hidden" name="formcomment" value="Покупка в Lenivastore">-->
+<!--      <input type="hidden" name="short-dest" value="Покупка в Lenivastore">-->
+<!--      <input type="hidden" name="label" value="{{order.id}}">-->
+<!--      <input type="hidden" name="quickpay-form" value="shop">-->
+<!--      <input type="hidden" name="targets" value="транзакция {{order.id}}">-->
+<!--      <input type="" name="sum" value="{{paypal_dict.amount}}" data-type="number">-->
+<!--      <input type="hidden" name="comment" value="Комментарий к заказу.">-->
+<!--      <input type="hidden" name="successURL" value="https://127.0.0.1:9000/payment/done.html">-->
+<!--      <input type="hidden" name="need-fio" value="false">-->
+<!--      <input type="hidden" name="need-email" value="false">-->
+<!--      <input type="hidden" name="need-phone" value="false">-->
+<!--      <input type="hidden" name="need-address" value="false">-->
+<!--      <label><input type="radio" name="paymentType" value="PC">Яндекс.Деньгами</label>-->
+<!--      <label><input type="radio" name="paymentType" value="AC">Банковской картой</label>-->
+<!--      <input type="submit" value="Перевести">-->
+<!--    </form>-->
+    <iframe src="https://money.yandex.ru/quickpay/shop-widget?writer=seller&targets=%D0%9F%D0%BE%D0%BA%D1%83%D0%BF%D0%BA%D0%B0%20%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D0%B0&targets-hint=&default-sum={{order.get_total_cost}}&button-text=11&payment-type-choice=on&hint=&successURL=https%3A%2F%2F127.0.0.1%3A9000%2Fpayment%2Fdone.html&quickpay=shop&account=4100110955783875" width="100%" height="226" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+  </div>
+
 {% endblock %}
