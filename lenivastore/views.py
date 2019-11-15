@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 from .models import Category, Product
 from cart.forms import CartAddProductForm
@@ -13,7 +14,15 @@ def product_list(request, category_slug=None):
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
 
-    paginator = Paginator(products, 6)
+    search_query = request.GET.get('search', '')
+
+    if search_query:
+        products = Product.objects.filter(
+            Q(name__icontains=search_query) |
+            Q(description__icontains=search_query))
+        paginator = Paginator(products, 100)
+    else:
+        paginator = Paginator(products, 8)
 
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
@@ -50,3 +59,8 @@ def product_detail(request, id, slug):
         'cart_product_form': cart_product_form
     }
     return render(request, 'lenivastore/product/detail.html', context)
+
+
+def about_project(request):
+
+    return render(request, 'lenivastore/product/about.html')

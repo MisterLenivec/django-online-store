@@ -10,17 +10,19 @@
     <form method="POST">
       {% csrf_token %}
       <fieldset class="form-group">
-        <legend class="border-bottom mb-4">Join Today</legend>
+        <legend class="border-bottom mb-4">Присоеденяйтесь сегодня</legend>
         {{ form|crispy }}
       </fieldset>
       <div class="form-group">
-        <button class="btn btn-outline-info" type="submit">Sign Up</button>
+        <button class="btn btn-outline-info" type="submit">
+          Зарегистрироваться
+        </button>
       </div>
     </form>
     <div class="border-top pt-3">
       <small class="text-muted">
-        Already Have An Account? <a href="{% url 'login' %}"
-                                    class="ml-2">Sign In</a>
+        Уже есть аккаунт? <a href="{% url 'login' %}"
+                                    class="ml-2">Войти</a>
       </small>
     </div>
   </div>

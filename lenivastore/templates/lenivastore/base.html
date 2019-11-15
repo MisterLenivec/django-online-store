@@ -12,7 +12,27 @@
 <body>
   <section id="header">
     <div class="top container">
-      <a href="{% url 'lenivastore:product_list' %}?next={{request.path}}">Онлайн-Магазин</a>
+      <a href="{% url 'lenivastore:product_list' %}?next={{request.path}}">
+        Lenivastore
+      </a>
+    </div>
+    <div>
+      <a href="{% url 'lenivastore:product_list' %}?next={{request.path}}">
+        Главная
+      </a>
+      <a href="{% url 'lenivastore:about_project' %}?next={{request.path}}">
+        О проекте
+      </a>
+    </div>
+    <div>
+      <form class="form-inline my-2 my-lg-0"
+            action="{% url 'lenivastore:product_list' %}">
+        <input class="form-control mr-sm-2" type="search"
+               placeholder="Search" aria-label="Search" name="search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          Search
+        </button>
+      </form>
     </div>
     <div class="top-bl">
       <div class="container">
@@ -32,12 +52,20 @@
         </div>
       </div>
       {% if user.is_authenticated %}
-        <li>User: {{ user.get_username }}</li>
-        <li><a href="{% url 'users:profile' %}?next={{request.path}}">Profile</a></li>
-        <li><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
+        <li>Пользователь: {{ user.get_username }}</li>
+        <li>
+          <a href="{% url 'users:profile' %}?next={{request.path}}">
+            Профиль
+          </a>
+        </li>
+        <li><a href="{% url 'logout' %}?next={{request.path}}">Выход</a></li>
       {% else %}
-        <li><a href="{% url 'login' %}?next={{request.path}}">Login</a></li>
-        <li><a href="{% url 'users:register' %}?next={{request.path}}">Register</a></li>
+        <li><a href="{% url 'login' %}?next={{request.path}}">Войти</a></li>
+        <li>
+          <a href="{% url 'users:register' %}?next={{request.path}}">
+            Регистрация
+          </a>
+        </li>
       {% endif %}
     </div>
   </section>

@@ -23,7 +23,11 @@
             <tr class="row{% cycle '1' '2' %}">
               <td>
                 <a href="{{ item.product.get_absolute_url }}">
-                  <img src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static 'images/no-image.jpeg'%}{% endif %}" style="max-width: 100px; height: 100px;" class="img-responsive">
+                  <img src="{% if item.product.image %}
+                  {{ item.product.image.url }}{% else %}
+                  {% static 'images/no-image.jpeg'%}{% endif %}"
+                       style="max-width: 100px; height: 100px;"
+                       class="img-responsive">
                 </a>
               </td>
               <td>{{ item.product.name }}</td>

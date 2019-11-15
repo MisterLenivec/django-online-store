@@ -67,10 +67,13 @@
           </tr>
           <tr>
             <td>
-              "{{ order.cupon.code }}" купон на ({{ order.cupon.discount }} % ниже)
+              "{{ order.cupon.code }}" купон на
+              ({{ order.cupon.discount }} % ниже)
             </td>
             <td colspan="2"></td>
-            <td class="num discount">- {{ order.get_order_discount|floatformat:"2" }} руб.</td>
+            <td class="num discount">
+              - {{ order.get_order_discount|floatformat:"2" }} руб.
+            </td>
           </tr>
         {% endif %}
         <tr class="total" style="text-align: left;">

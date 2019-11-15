@@ -12,16 +12,23 @@
       <a href="{{request.META.HTTP_REFERER}}">Назад</a>
     </div>
     <div class="col-sm-4">
-      <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "images/no-image.jpeg" %}{% endif %}" style="max-width: 400px; height: 400px;" class="img-responsive">
+      <img src="{% if product.image %}{{ product.image.url }}{% else %}
+      {% static 'images/no-image.jpeg' %}{% endif %}"
+           style="max-width: 400px; height: 400px;" class="img-responsive">
     </div>
     <div class="col-sm-8">
       <h1>{{ product.name }}</h1>
-      <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+      <h2>
+        <a href="{{ product.category.get_absolute_url }}">
+          {{ product.category }}
+        </a>
+      </h2>
       <p class="price">
         {{ product.price }} руб.
       </p>
-      <form action="{% url 'cart:cart_add' product.id %}" method="post" class="add">
-        {{ cart_product_form }}
+      <form action="{% url 'cart:cart_add' product.id %}" method="post"
+            class="add">
+        {{ cart_product_form|join:"" }}
         {% csrf_token %}
         <input type="submit" value="Добавить в корзину">
       </form>

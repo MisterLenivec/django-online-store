@@ -23,19 +23,25 @@
           <tr>
             <td>
               <a href="{{ product.get_absolute_url }}">
-                <img src="{{ product.image.url }}" style="max-width: 200px; height: 200px; alt="" />
+                <img src="{{ product.image.url }}"
+                     style="max-width: 200px; height: 200px; alt="" />
               </a>
             </td>
             <td>{{ product.name }}</td>
             <td>
-              <form action="{% url 'cart:cart_add' product.id %}" method="post" class="add">
+              <form action="{% url 'cart:cart_add' product.id %}" method="post"
+                    class="add">
                 {{ item.update_quantity_form.quantity }}
                 {{ item.update_quantity_form.update }}
                 {% csrf_token %}
                 <input type="submit" value="Обновить">
               </form>
             </td>
-            <td><a href="{% url 'cart:cart_remove' product.id %}">Удалить</a></td>
+            <td>
+              <a href="{% url 'cart:cart_remove' product.id %}">
+                Удалить
+              </a>
+            </td>
             <td class="num">{{ item.price }} руб.</td>
             <td class="num">{{ item.total_price }} руб.</td>
           </tr>
@@ -52,24 +58,30 @@
             "{{ cart.cupon.code }}" купон на ({{ cart.cupon.discount }} % ниже)
           </td>
           <td colspan="4"></td>
-          <td class="num discount">- {{ cart.get_discount|floatformat:"2" }} руб.</td>
+          <td class="num discount">
+            - {{ cart.get_discount|floatformat:"2" }} руб.
+          </td>
         </tr>
       {% endif %}
       <tr class="total">
         <td>Всего</td>
         <td colspan="4"></td>
-        <td class="num">{{ cart.get_total_price_after_discount|floatformat:"2" }} руб.</td>
+        <td class="num">
+          {{ cart.get_total_price_after_discount|floatformat:"2" }} руб.
+        </td>
       </tr>
     </tbody>
   </table>
   <p>Применить купон</p>
-    <form action="{% url 'cupon:apply' %}" method="post" class="add">
-      {% csrf_token %}
-      {{ cupon_apply_form }}
-      <input type="submit" value="Обновить">
+  <form action="{% url 'cupon:apply' %}" method="post" class="add">
+    {% csrf_token %}
+    {{ cupon_apply_form|join:"" }}
+    <input type="submit" value="Применить">
   </form>
   <p class="text-right">
-    <a href="{% url 'lenivastore:product_list'%}" class="btn">Продолжить Шопинг</a>
+    <a href="{% url 'lenivastore:product_list'%}" class="btn">
+      Продолжить Шопинг
+    </a>
     {% if cart.get_total_price %}
       <a href="{% url 'orders:order_create' %}" class="btn">Оформить заказ</a>
     {% endif %}

@@ -8,18 +8,21 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Order(models.Model):
-    phone_order = PhoneNumberField(blank=False)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    phone_order = PhoneNumberField(blank=False, verbose_name="Телефон")
+    first_name = models.CharField(max_length=50, verbose_name="Имя")
+    last_name = models.CharField(max_length=50, verbose_name="Фамилия")
     email = models.EmailField()
-    address = models.CharField(max_length=150)
-    postal_code = models.CharField(max_length=20)
-    city = models.CharField(max_length=100)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    paid = models.BooleanField(default=False)
-    order_processed = models.BooleanField(default=False, verbose_name='OP')
-    card_paid = models.BooleanField(default=True)
+    address = models.CharField(max_length=150, verbose_name="Адрес")
+    postal_code = models.CharField(max_length=20,
+                                   verbose_name="Почтовый индекс")
+    city = models.CharField(max_length=100, verbose_name="Город")
+    created = models.DateTimeField(auto_now_add=True,
+                                   verbose_name="Заказ создан")
+    updated = models.DateTimeField(auto_now=True, verbose_name="Заказ изменен")
+    paid = models.BooleanField(default=False, verbose_name="Оплата")
+    order_processed = models.BooleanField(default=False,
+                                          verbose_name='Оплачен')
+    card_paid = models.BooleanField(default=True, verbose_name="Онлайн оплата")
     cupon = models.ForeignKey(Cupon, related_name='orders', null=True,
                               blank=True, on_delete=models.CASCADE)
     discount = models.IntegerField(default=0, validators=[MinValueValidator(0),

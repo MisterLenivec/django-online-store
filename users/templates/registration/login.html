@@ -7,11 +7,11 @@
 <form method="post" action="{% url 'login' %}">
   {% csrf_token %}
   <fieldset class="form-group">
-    <legend class="border-bottom mb-4">Log In</legend>
+    <legend class="border-bottom mb-4">Авторизация</legend>
     {{ form|crispy }}
   </fieldset>
   <div class="form-group">
-    <input class="btn btn-outline-info" type="submit" value="login" />
+    <input class="btn btn-outline-info" type="submit" value="Войти" />
     <input type="hidden" name="next" value="{{ next }}" />
   </div>
 </form>
@@ -19,8 +19,9 @@
 {# Assumes you setup the password_reset view in your URLconf #}
 <div class="border-top pt-3">
   <small class="text-muted">
-    <a href="{% url 'password_reset' %}" class="ml-2">Lost password?</a>
-    Or need an account?<a href="{% url 'users:register' %}" class="ml-2">Sign Up</a>
+    <a href="{% url 'password_reset' %}" class="ml-2">Забыли пароль?</a>
+    Или нужен аккаунт?
+    <a href="{% url 'users:register' %}" class="ml-2">Зарегистрироваться</a>
   </small>
 </div>
 
