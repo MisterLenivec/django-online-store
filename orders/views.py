@@ -37,7 +37,10 @@ def order_create(request):
             else:
                 return offline_paid(request, cart)
     else:
-        form = OrderCreateForm(instance=request.user)
+        if request.user.is_authenticated:
+            form = OrderCreateForm(instance=request.user)
+        else:
+            form = OrderCreateForm()
     return render(request, 'orders/order/create.html', {'cart': cart,
                                                         'form': form})
 
@@ -60,7 +63,7 @@ def offline_paid(request, cart):
     out = BytesIO()
     weasyprint.HTML(string=html).write_pdf(out,
                             stylesheets=[weasyprint.CSS(
-                            settings.STATIC_ROOT + 'css/bootstrap.min.css')])
+                            settings.STATIC_ROOT + '/css/style.css')])  # + 'css/bootstrap.min.css'
     msg = EmailMultiAlternatives(subject, message,
                                  settings.EMAIL_HOST_USER, [order.email],
                                  connection=connection)
@@ -89,5 +92,5 @@ def admin_order_PDF(request, order_id):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'filename=order_{}.pdf'.format(order.id)
     weasyprint.HTML(string=html).write_pdf(response,
-               stylesheets=[weasyprint.CSS(settings.STATIC_ROOT + 'css/bootstrap.min.css')])
+               stylesheets=[weasyprint.CSS(settings.STATIC_ROOT + '/css/style.css')])  # + 'css/bootstrap.min.css'
     return response

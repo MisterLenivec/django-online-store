@@ -20,7 +20,7 @@ def product_list(request, category_slug=None):
         products = Product.objects.filter(
             Q(name__icontains=search_query) |
             Q(description__icontains=search_query))
-        paginator = Paginator(products, 100)
+        paginator = Paginator(products, len(products) or 100)
     else:
         paginator = Paginator(products, 8)
 

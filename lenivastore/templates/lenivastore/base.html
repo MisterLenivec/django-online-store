@@ -1,83 +1,162 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=idge">
-  <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
-  <link rel="stylesheet" href="{% static "css/style.css" %}">
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster|Open+Sans|Satisfy&display=swap&subset=cyrillic" rel="stylesheet">
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}"
+        type="image/x-icon">
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+  <link rel="stylesheet"
+        href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script src="{% static 'js/main.js' %}" async></script>
   <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-  <section id="header">
-    <div class="top container">
-      <a href="{% url 'lenivastore:product_list' %}?next={{request.path}}">
-        Lenivastore
-      </a>
-    </div>
-    <div>
-      <a href="{% url 'lenivastore:product_list' %}?next={{request.path}}">
-        Главная
-      </a>
-      <a href="{% url 'lenivastore:about_project' %}?next={{request.path}}">
-        О проекте
-      </a>
-    </div>
-    <div>
-      <form class="form-inline my-2 my-lg-0"
-            action="{% url 'lenivastore:product_list' %}">
-        <input class="form-control mr-sm-2" type="search"
-               placeholder="Search" aria-label="Search" name="search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-          Search
-        </button>
-      </form>
-    </div>
-    <div class="top-bl">
-      <div class="container">
-        <div class="cart">
-          {% with total_items=cart|length %}
-            {% if cart|length > 0 %}
-              Ваша корзина:
-              <a href="{% url 'cart:cart_detail' %}">
-                <!-- Избавиться от cart.get_total_price что бы не считалась
-                ПОСТОЯННО сумма? -->
-                {{ total_items }} тов. {{ cart.get_total_price }} руб.
-              </a>
+  <div class="wrapper" id="base_wrapper">
+    <header id="header">
+      <span id="menu_header">
+        <p class="fa fa-bars">Меню</p>
+      </span>
+      <div id="wrapper_top_bottom_headers">
+        <div class="top_header">
+          <div id="logo">
+            <a href="{% url 'lenivastore:product_list' %}?next={{request.path}}">
+              <p class="large_logo">Lenivastore</p>
+              <p class="little_logo">LS</p>
+            </a>
+          </div>
+          <div id="search">
+            <form action="{% url 'lenivastore:product_list' %}">
+              <input type="search" placeholder="Поиск" aria-label="Search"
+                     name="search">
+              <button type="submit">
+                Искать
+              </button>
+            </form>
+          </div>
+          <div class="nav_links_right">
+            {% if user.is_authenticated %}
+              <li id="profile_link">
+                <a href="{% url 'users:profile' %}?next={{request.path}}">
+                  <i class="fa fa-user-circle" aria-hidden="true"></i>
+                  Профиль
+                </a>
+              </li>
+              <li id="logout_link">
+                <a href="{% url 'logout' %}">
+                  <i class="fa fa-sign-out" aria-hidden="true"></i>
+                  Выход
+                </a>
+              </li>
             {% else %}
-              Корзина пустая
+              <li>
+                <a class="color_black" href="{% url 'login' %}">
+                  <i class="fa fa-sign-in icons" aria-hidden="true"></i>
+                  Войти
+                </a>
+              </li>
+              <li>
+                <a class="color_black" href="{% url 'users:register' %}">
+                  <i class="fa fa-user-plus icons" aria-hidden="true"></i>
+                  Регистрация
+                </a>
+              </li>
             {% endif %}
-          {% endwith %}
+          </div>
+        </div>
+        <nav class="bottom_header">
+          <ul class="nav_links">
+            <li class="item_nav">
+              <a href="{% url 'lenivastore:product_list' %}?next={{request.path}}">
+                <i class="fa fa-home icons" aria-hidden="true"></i>
+                Главная
+              </a>
+            </li>
+            <li class="item_nav">
+              <a href="{% url 'lenivastore:about_project' %}?next={{request.path}}">
+                <i class="fa fa-commenting icons" aria-hidden="true"></i>
+                О проекте
+              </a>
+            </li>
+            <li class="item_nav" id="cat_nav">
+              <a href="#">
+                <i class="fa fa-list-ul icons" aria-hidden="true"></i>
+                Категории
+              </a>
+              <ul class="dropdown_menu">
+                <li {% if not category %} class="selected" {% endif %}>
+                  <a href="{% url 'lenivastore:product_list' %}">Все</a>
+                </li>
+                {% for cat in categories %}
+                  <li>
+                    <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li class="item_nav">
+              {% with total_items=cart|length %}
+                {% if cart|length > 0 %}
+                  <a href="{% url 'cart:cart_detail' %}">
+                    <i class="fa fa-shopping-cart icons" aria-hidden="true"></i>
+                    Корзина:
+                    {{ total_items }} тов.
+                    <span class="cart_price">{{ cart.get_total_price }} руб.</span>
+                  </a>
+                {% else %}
+                  <a href="{% url 'cart:cart_detail' %}">
+                    <i class="fa fa-shopping-cart icons" aria-hidden="true"></i>
+                    Корзина пуста
+                  </a>
+                {% endif %}
+              {% endwith %}
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert {{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+      {% block content %}{% endblock %}
+    </main>
+    <footer id="footer">
+      <div class="wrapper_foot">
+        <div class="left_foot">
+        <h4>Не является</h4>
+        <h4>коммерческим проектом</h4>
+      </div>
+      <div class="center_foot">
+        <h4 id="company_name">LenivaCompany&#169; 2019</h4>
+        <div class="social">
+          <i class="fa fa-vk fa-lg"></i>
+          <i class="fa fa-facebook fa-lg"></i>
+          <i class="fa fa-instagram fa-lg"></i>
+          <i class="fa fa-telegram fa-lg"></i>
         </div>
       </div>
-      {% if user.is_authenticated %}
-        <li>Пользователь: {{ user.get_username }}</li>
-        <li>
-          <a href="{% url 'users:profile' %}?next={{request.path}}">
-            Профиль
+      <div class="right_foot">
+        <h4>Сделанно на Django 2</h4>
+        <h4>
+          <a href="#">
+            <a href="https://github.com/MisterLenivec/django-online-store">
+              <i class="fa fa-github" aria-hidden="true"></i> Проект
+            </a>
           </a>
-        </li>
-        <li><a href="{% url 'logout' %}?next={{request.path}}">Выход</a></li>
-      {% else %}
-        <li><a href="{% url 'login' %}?next={{request.path}}">Войти</a></li>
-        <li>
-          <a href="{% url 'users:register' %}?next={{request.path}}">
-            Регистрация
-          </a>
-        </li>
-      {% endif %}
-    </div>
-  </section>
-  <section id="content row" class="container">
-    {% if messages %}
-      {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-          {{ message }}
-        </div>
-      {% endfor %}
-    {% endif %}
-    {% block content %}{% endblock %}
-  </section>
+        </h4>
+      </div>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>

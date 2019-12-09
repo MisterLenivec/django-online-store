@@ -7,19 +7,19 @@
 {% endblock %}
 
 {% block content %}
-  <div id="sidebar" class="col-sm-3">
-    <h3>Категории</h3>
-    <ul>
-      <li {% if not category %} class="selected" {% endif %}>
-        <a href="{% url 'lenivastore:product_list' %}">Все</a>
-      </li>
-      {% for cat in categories %}
-        <li {% if category.slug == cat.slug %} class="selected" {% endif %}>
-          <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
+<!--  <div id="sidebar" class="col-sm-3">-->
+<!--    <h3>Категории</h3>-->
+<!--    <ul>-->
+<!--      <li {% if not category %} class="selected" {% endif %}>-->
+<!--        <a href="{% url 'lenivastore:product_list' %}">Все</a>-->
+<!--      </li>-->
+<!--      {% for cat in categories %}-->
+<!--        <li {% if category.slug == cat.slug %} class="selected" {% endif %}>-->
+<!--          <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>-->
+<!--        </li>-->
+<!--      {% endfor %}-->
+<!--    </ul>-->
+<!--  </div>-->
   <div id="main" class="product_list col-sm-9">
     <h1>{% if category %}{{ category.name }}{% else %}Товары{% endif %}</h1>
     <div class="items row">

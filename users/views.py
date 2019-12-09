@@ -12,8 +12,8 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Your account has been created! '
-            f'{username} are now able to log in.')
+            messages.success(request, f'Ваш аккаунт создан! '
+            f'{username} теперь вы можете войти.')
             return redirect('login')
     else:
         form = UserRegisterForm()
@@ -36,7 +36,7 @@ def change_phone_or_image(request):
         if p_form.is_valid(): # and u_form.is_valid():
             # u_form.save()
             p_form.save()
-            messages.success(request, f'Your account has been updated!')
+            messages.success(request, f'Ваш аккаунт обновлен!')
             return redirect('users:profile')
     else:
         # u_form = UserUpdateForm(instance=request.user)
