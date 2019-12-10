@@ -11,6 +11,7 @@ body {
   font-size: 18px;
   font-family: 'Open Sans', sans-serif;
   color: #212529;
+  /*background-color: #e8e2fb;*/
 }
 li {
   list-style-type: none;
@@ -30,13 +31,13 @@ a {
   height: 100vh;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: auto auto auto;
-  grid-template-columns: auto auto auto;
+  -ms-grid-columns: auto minmax(auto, 800px) auto;
+  grid-template-columns: auto minmax(auto, 800px) auto;
   -ms-grid-rows: 104px 5px auto 5px 80px;
   grid-template-rows: 104px auto 80px;
       grid-template-areas:
       "header header header"
-      "main main main"
+      "aside main sidebar"
       "footer footer footer";
   grid-row-gap: 5px;
   /*minmax(auto, 800px)*/
@@ -47,11 +48,24 @@ header {
   grid-area: header;
   background-color: #b4e0f0;
 }
-main {
+aside {
   -ms-grid-row: 3;
   -ms-grid-column: 1;
+  grid-area: aside;
+  background-color: #ffffff;
+}
+main {
+  -ms-grid-row: 3;
+  -ms-grid-column: 3;
   grid-area: main;
-  background-color: #e8e2fb;
+  background-color: #ffffff;
+  /*background-color: #e8e2fb;*/
+}
+.sidebar {
+  -ms-grid-row: 3;
+  -ms-grid-column: 5;
+  grid-area: sidebar;
+  background-color: #ffffff;
 }
 footer {
   -ms-grid-row: 5;
@@ -111,13 +125,13 @@ footer {
   margin-top: 5px;
 }
 #search input {
-  /*color: #000000;*/
   margin-left: 5px;
   width: calc(95% - 90px);
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  background-color: #fafafa;
+  /*background-color: #fafafa;*/
+  background-color: #ffffff;
   border: 3px solid #b4e0f0;
   transition: border-bottom 0.3s ease-in-out;
 }
@@ -238,7 +252,7 @@ ul.dropdown_menu > li > a {
   display: block;
   padding: 7px 0;
 }
-/*сообщение об успешном изменении в main из base.html---------*/
+/*Success message in main base.html---------------------------*/
 main div.success {
   color: #155724;
   background-color: #d4edda;
@@ -252,7 +266,7 @@ main div.success {
   border-radius: .25rem;
   text-align: center;
 }
-/*footer------------------------------------------------------*/
+/*Footer------------------------------------------------------*/
 .wrapper_foot {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -452,7 +466,7 @@ div.content-section {
 .wrapper_cart_buttons a {
   margin: .5rem;
 }
-/*custom input in create order--------------------------------*/
+/*Custom input in create order--------------------------------*/
 input[name="card_paid"] {
   display: none;
 }
@@ -476,7 +490,7 @@ input[name="card_paid"]:checked + label:before {
   color: #212529;
 }
 
-/*Кнопка открытия формы купона--------------------------------*/
+/*Button for opening a coupon---------------------------------*/
 .hide_button {
   display: none;
 }
@@ -509,10 +523,101 @@ label.button_base {
 .hide_button:checked + label + div.cupon_section {
     display: block;
 }
+
+/*Product cards-----------------------------------------------*/
+.card_list_wrapper {
+  display: grid;
+  grid-template-columns: 1fr repeat(12, minmax(auto, 60px)) 1fr;
+  /*grid-row-gap: 40px;*/
+  padding: 15px 0;
+}
+.text-medium {
+  font-size: 16px;
+  line-height: 20px;
+}
+.cards {
+  grid-column: 2 / span 12;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(auto, 60px));
+  grid-gap: 20px;
+}
+.card_item{
+  grid-column-end: span 4;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  margin: 5px;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 2px;
+  border-radius: .3rem;
+  background-color: #ffffff;
+  transition: all 0.3s ease 0s;
+}
+.card_item:hover {
+  transform: translateY(-7px);
+}
+.card_image_container{
+  width: 100%;
+  padding-top: 100%;
+  overflow: hidden;
+  position: relative;
+  background-color: #ffffff;
+}
+.card_image_container img {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.card_content {
+  padding: 20px 10px;
+  height: 100%;
+}
+.card_title {
+  margin-bottom: 20px;
+}
+.card_info {
+  display: flex;
+  justify-content: flex-end;
+}
+.card_price {
+  padding: 5px 15px;
+  background-color: #b4e0f0;
+  border-radius: 15px;
+}
+/*Pagination--------------------------------------------------*/
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+.pagination a {
+  justify-content: center;
+  padding: 10px 12px;
+  border-radius: .3rem;
+  margin: 3px;
+  border: 1px solid #dee2e6;
+}
+a.selected_page, .pagination a:hover, .pagination a:active, .pagination a:focus {
+  background-color: #b4e0f0;
+  border-color: #80bdff;
+}
+a.first_page {
+  padding: 10px 27px;
+}
 /*Others------------------------------------------------------*/
 .products_margin {
   margin-bottom: .5rem;
   margin-left: .1rem;
+}
+.category_title {
+  text-align: center;
+  letter-spacing: .2rem;
+  padding-bottom: .3rem;
+  color: #454545;
+  border-bottom: 1px solid #dee2e6;
 }
 
 @media all and (max-width: 1200px) {
@@ -542,6 +647,9 @@ label.button_base {
   .center_foot {
     line-height: 1.15;
     font-size: 85%;
+  }
+  .category_title {
+    letter-spacing: 0;
   }
 }
 
@@ -659,11 +767,45 @@ label.button_base {
   .social {
     margin: 7px;
   }
+  /*Product cards---------------------------------------------*/
+  .card_item {
+    grid-column-end: span 6;
+  }
+  /*Pagination------------------------------------------------*/
+  .first_page, .last_page {
+    display: none;
+  }
 }
 
 @media all and (max-width: 420px) {
   ul.dropdown_menu > li {
     font-size: 85%;
     line-height: 1.5;
+  }
+  /*Product cards---------------------------------------------*/
+  .card_list_wrapper {
+    display: grid;
+    grid-template-columns: 10px repeat(6, 1fr) 10px;
+    grid-gap: 10px;
+    padding: 15px 0;
+  }
+  .cards {
+    grid-column: 2 / span 6;
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .card_item {
+    margin: 10px;
+  }
+  .card_content {
+    padding: 10px 5px;
+    height: 100%;
+  }
+  .card_title {
+    margin-bottom: 10px;
+  }
+  /*Pagination------------------------------------------------*/
+  .pagination a {
+    padding: 10px;
+    margin: 0;
   }
 }

@@ -22,7 +22,7 @@ def product_list(request, category_slug=None):
             Q(description__icontains=search_query))
         paginator = Paginator(products, len(products) or 100)
     else:
-        paginator = Paginator(products, 8)
+        paginator = Paginator(products, 12)
 
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)

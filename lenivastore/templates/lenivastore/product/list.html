@@ -7,55 +7,56 @@
 {% endblock %}
 
 {% block content %}
-<!--  <div id="sidebar" class="col-sm-3">-->
-<!--    <h3>Категории</h3>-->
-<!--    <ul>-->
-<!--      <li {% if not category %} class="selected" {% endif %}>-->
-<!--        <a href="{% url 'lenivastore:product_list' %}">Все</a>-->
-<!--      </li>-->
-<!--      {% for cat in categories %}-->
-<!--        <li {% if category.slug == cat.slug %} class="selected" {% endif %}>-->
-<!--          <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>-->
-<!--        </li>-->
-<!--      {% endfor %}-->
-<!--    </ul>-->
-<!--  </div>-->
-  <div id="main" class="product_list col-sm-9">
-    <h1>{% if category %}{{ category.name }}{% else %}Товары{% endif %}</h1>
-    <div class="items row">
+  <h3 class="category_title">
+    {% if category %}{{ category.name }}{% else %}Товары{% endif %}
+  </h3>
+  <div class="card_list_wrapper">
+    <div class="cards">
       {% for product in page_object.object_list %}
-        <div class="item col-sm-4">
-          <a href="{{ product.get_absolute_url }}">
-            <img src="{% if product.image %}{{ product.image.url }}{% else %}
-            {% static 'images/no-image.jpeg'%}{% endif %}"
-            style="max-width: 200px; height: 200px;" class="img-responsive">
-          </a>
-          <br>
-          <a href="{{ product.get_absolute_url }}?next={{request.path}}">{{ product.name }}</a><br>
-          {{ product.price }} руб.
+        <div class="card_item">
+          <div class="card_image_container">
+            <a href="{{ product.get_absolute_url }}">
+              <img src="{% if product.image %}{{ product.image.url }}{% else %}
+              {% static 'images/no-image.jpeg'%}{% endif %}">
+            </a>
+          </div>
+          <div class="card_content">
+            <div class="card_title">
+              <a class="text-medium" href="{{ product.get_absolute_url }}?next={{request.path}}">
+                {{ product.name }}
+              </a>
+            </div>
+          </div>
+          <div class="card_info">
+            <p class="card_price text-medium">{{ product.price }} руб.</p>
+          </div>
         </div>
       {% endfor %}
     </div>
   </div>
-
-  {% if is_paginated %}
-    {% if page_object.has_previous %}
-      <a class="btn btn-outline-info mb-4" href="?page=1">Первая</a>
-      <a class="btn btn-outline-info mb-4" href="?page={{ page_object.previous_page_number }}">&#9668;</a>
-    {% endif %}
-
-    {% for num in page_object.paginator.page_range %}
-      {% if page_object.number == num %}
-        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-      {% elif num > page_object.number|add:'-3' and num < page_object.number|add:'3' %}
-        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+  <div class="pagination">
+    {% if is_paginated %}
+      {% if page_object.has_previous %}
+        <a class="first_page" href="?page=1">Первая</a>
+        <a class="prev_page" href="?page={{ page_object.previous_page_number }}">
+          <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+        </a>
       {% endif %}
-    {% endfor %}
 
-    {% if page_object.has_next %}
-      <a class="btn btn-outline-info mb-4" href="?page={{ page_object.next_page_number }}">&#9658;</a>
-      <a class="btn btn-outline-info mb-4" href="?page={{ page_object.paginator.num_pages }}">Последняя</a>
+      {% for num in page_object.paginator.page_range %}
+        {% if page_object.number == num %}
+          <a class="nums_page selected_page" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_object.number|add:'-3' and num < page_object.number|add:'3' %}
+          <a class="nums_page" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_object.has_next %}
+        <a class="next_page" href="?page={{ page_object.next_page_number }}">
+          <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+        </a>
+        <a class="last_page" href="?page={{ page_object.paginator.num_pages }}">Последняя</a>
+      {% endif %}
     {% endif %}
-  {% endif %}
-
+  </div>
 {% endblock %}
