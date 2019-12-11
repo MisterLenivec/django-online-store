@@ -7,35 +7,40 @@
 {% endblock %}
 
 {% block content %}
-  <div class="product-detail">
-    <div class="col-sm-4">
-      <a href="{{request.META.HTTP_REFERER}}">Назад</a>
+  <h3 class="back_button">
+    <a href="{{request.META.HTTP_REFERER}}">Назад</a>
+  </h3>
+  <div class="product_detail_wrapper">
+    <h3>
+      <a href="{{ product.category.get_absolute_url }}">
+        {{ product.category }}
+      </a>
+    </h3>
+    <h2>{{ product.name }}</h2>
+    <div class="product_img_desc_container">
+      <div class="product_image_container">
+        <img src="{% if product.image %}{{ product.image.url }}{% else %}
+        {% static 'images/no-image.jpeg' %}{% endif %}">
+      </div>
+      <div class="product_desc">
+        <p>{{ product.description | linebreaks}}</p>
+      </div>
     </div>
-    <div class="col-sm-4">
-      <img src="{% if product.image %}{{ product.image.url }}{% else %}
-      {% static 'images/no-image.jpeg' %}{% endif %}"
-           style="max-width: 400px; height: 400px;" class="img-responsive">
-    </div>
-    <div class="col-sm-8">
-      <h1>{{ product.name }}</h1>
-      <h2>
-        <a href="{{ product.category.get_absolute_url }}">
-          {{ product.category }}
-        </a>
-      </h2>
-      <p class="price">
-        {{ product.price }} руб.
-      </p>
-      <form action="{% url 'cart:cart_add' product.id %}" method="post"
-            class="add">
-        {{ cart_product_form|join:"" }}
-        {% csrf_token %}
-        <input type="submit" value="Добавить в корзину">
-      </form>
-      <span>
-        {{ product.description | linebreaks}}
+    <div class="product_content">
+      <div class="price_forms">
+        <h3 class="product_price">
+          {{ product.price }} руб.
+        </h3>
+        <form action="{% url 'cart:cart_add' product.id %}" method="post">
+          {{ cart_product_form|join:"" }}
+          {% csrf_token %}
+          <input class="button_base blue_button" type="submit" value="Добавить в корзину">
+        </form>
+      </div>
+      <h4>Характеристики</h4>
+      <p>
         {{ product.features | linebreaks}}
-      </span>
+      </p>
     </div>
   </div>
 {% endblock %}
