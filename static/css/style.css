@@ -684,12 +684,131 @@ a.first_page {
 .product_price {
   margin: 2px 10px 2px 0;
 }
+
+/*Cart--------------------------------------------------------*/
+.cart_cards_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.cart_one_card {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin-bottom: 5px;
+  max-width: 600px;
+  border: 1px solid #dee2e6;
+  border-radius: .5rem;
+}
+.cart_card_name {
+  display: flex;
+  margin-bottom: 5px;
+}
+.cart_card_content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /*flex-wrap: wrap;*/
+}
+.cart_img_container {
+  user-select: none;
+  width: 100px;
+}
+.cart_img_container img {
+  max-width: 100px;
+  max-height: 100px;
+}
+.cart_add_delete_buttons {
+  display: flex;
+  margin: 0 5px;
+}
+.cart_add_delete_buttons select {
+  width: 61px;
+  cursor: pointer;
+}
+.cart_add_delete_buttons input {
+  padding: .23rem;
+  cursor: pointer;
+}
+.cart_add_delete_buttons input:focus {
+  outline: 0;
+  outline-offset: 0;
+}
+.cart_add_delete_buttons a {
+  padding: .5rem .6rem;
+  margin-left: 15px;
+  border: 1px solid #e80000;
+  background-color: #e80000;
+  opacity: .9;
+  border-radius: .3rem;
+  align-self: center;
+}
+.cart_add_delete_buttons a:hover {
+  opacity: 1;
+}
+.cart_card_price {
+  min-width: 120px;
+  margin: 10px 5px;
+}
+.cart_sums {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #dee2e6;
+}
+.cart_sums p:nth-child(2n) {
+  margin-right: 150px;
+}
+
+/*Profile-----------------------------------------------------*/
+.profile_wrapper {
+  display: flex;
+  margin: 10px 10px 20px 10px;
+  justify-content: center;
+}
+.profile_img_container {
+  display: flex;
+  user-select: none;
+  width: 300px;
+  justify-content: center;
+}
+.profile_img_container img {
+  max-width: 300px;
+  max-height: 300px;
+}
+.profile_content {
+  margin-left: 20px;
+}
+.profile_content h2 {
+  margin-bottom: 5px;
+  font-style: italic;
+}
+.profile_links {
+  display: flex;
+  margin: 10px;
+  padding-bottom: .3rem;
+  border-bottom: 1px solid #dee2e6;
+}
+.profile_links:hover {
+  background-color: #b4e0f0;
+  border-radius: .3rem;
+}
+.profile_links a {
+  width: 100%;
+  padding-left: 5px;
+  font-weight: 600;
+  font-size: 90%;
+}
+.profile_links > a > i {
+  margin-right: 5px;
+}
+
 /*Others------------------------------------------------------*/
 .products_margin {
   margin-bottom: .5rem;
   margin-left: .1rem;
 }
-.category_title {
+.page_title {
   text-align: center;
   letter-spacing: .2rem;
   padding-bottom: .3rem;
@@ -876,6 +995,33 @@ a.first_page {
     min-width: 100%;
     max-width: 100%;
   }
+  /*Cart------------------------------------------------------*/
+  .cart_sums p:nth-child(2n) {
+    margin-right: 0;
+  }
+  /*Profile---------------------------------------------------*/
+  .profile_wrapper {
+    align-items: center;
+    flex-direction: column;
+  }
+  .profile_img_container {
+    user-select: none;
+    width: 300px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #dee2e6;
+  }
+  .profile_img_container img {
+    max-width: 300px;
+    max-height: 300px;
+  }
+  .profile_content {
+    margin-left: 0;
+  }
+  .profile_links a {
+    font-weight: 600;
+    font-size: 85%;
+  }
 }
 
 @media all and (max-width: 420px) {
@@ -904,12 +1050,29 @@ a.first_page {
   .card_title {
     margin-bottom: 10px;
   }
+  .card_image_container {
+    width: 100%;
+  }
   /*Pagination------------------------------------------------*/
   .pagination a {
     padding: 10px;
     margin: 0;
   }
-  .card_image_container {
+  /*Cart------------------------------------------------------*/
+  .cart_card_content {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .cart_sums p {
+    font-size: 90%;
+  }
+  .page_title {
+    letter-spacing: 0;
+  }
+  .profile_img_container {
+    width: 100%;
+  }
+  .profile_img_container img {
     width: 100%;
   }
 }

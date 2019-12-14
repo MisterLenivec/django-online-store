@@ -4,22 +4,28 @@
 {% load crispy_forms_tags %}
 {% block content %}
   <div class="content-section">
-    <legend class="border-bottom mb-4">Информация о профиле</legend>
-    <div class="media">
-      <img class="account-img" src="{{ user.profile.image.url }}">
-      <div class="media-body">
-        <h2 class="account-heading">{{ user.username }}</h2>
-        <p class="text-secondary">{{ user.email }}</p>
-        <p class="text-secondary">{{ user.first_name }}</p>
-        <p class="text-secondary">{{ user.last_name }}</p>
-        <p class="text-secondary">{{ user.profile.phone }}</p>
+    <h3 class="page_title">Информация о профиле</h3>
+    <div class="profile_wrapper">
+      <div class="profile_img_container">
+        <img src="{{ user.profile.image.url }}">
+      </div>
+      <div class="profile_content">
+        <h2>{{ user.username }}</h2>
+        <p>{{ user.email }}</p>
+        <p>{{ user.first_name }}</p>
+        <p>{{ user.last_name }}</p>
+        <p>{{ user.profile.phone }}</p>
       </div>
     </div>
-    <div>
-      <a href="{% url 'users:page_ordered_goods' %}">Страница заказов</a>
+    <div class="profile_links">
+      <a href="{% url 'users:page_ordered_goods' %}">
+        <i class="fa fa-sort" aria-hidden="true"></i>
+        Страница заказов
+      </a>
     </div>
-    <div>
+    <div class="profile_links">
       <a href="{% url 'users:change_phone_or_image' %}">
+        <i class="fa fa-cog" aria-hidden="true"></i>
         Добавьте или измените номер телефона и изображение профиля
       </a>
     </div>
