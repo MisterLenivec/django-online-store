@@ -22,9 +22,9 @@
 
     <div class="control_group">
       <h2>Ваш заказ</h2>
-      <ul>
+      <ul class="products_margin">
         {% for item in cart  %}
-          <li class="products_margin">
+          <li>
             {{ item.product.name }} | Количество: {{ item.quantity }} | Цена:
             {{ item.total_price }}
           </li>
@@ -32,7 +32,7 @@
         {% if cart.cupon %}
           <li>
             Сумма без скидки:
-            <span> - {{ cart.get_total_price }}руб.</span>
+            <span>  {{ cart.get_total_price }}руб.</span>
           </li>
           <li>
             "{{ cart.cupon.code }}" (на {{ cart.cupon.discount }}% меньше)

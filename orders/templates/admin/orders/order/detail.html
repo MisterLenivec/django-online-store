@@ -111,7 +111,7 @@
             <td colspan="2"></td>
             <td class="num discount">- {{ order.get_order_discount|floatformat:"2" }} руб.</td>
           </tr>
-        {% endif %}
+          {% endif %}
           <tr class="total">
             <td colspan="3">Всего</td>
             <td class="num">{{ order.get_total_cost }} руб.</td>

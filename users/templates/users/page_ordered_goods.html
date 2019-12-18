@@ -3,17 +3,17 @@
 {% load static %}
 {% block content %}
   <div class="content-section">
-    <div class="col-sm-4">
+    <h3 class="back_button">
       <a href="{{request.META.HTTP_REFERER}}">Назад</a>
-    </div>
-    <legend class="border-bottom mb-4">Список заказов</legend>
-    <table>
-      <h2>Заказанные товары</h2>
+    </h3>
+    <h4 class="goods_title">Список заказов</h4>
+    <table class="goods_table">
+      <h3 class="goods_title">Заказанные товары</h3>
       <thead>
         <tr>
           <th>Изображение</th>
           <th>Название товара</th>
-          <th>Количество</th>
+          <th>Кол.</th>
           <th>Дата заказа</th>
         </tr>
       </thead>
@@ -25,9 +25,7 @@
                 <a href="{{ item.product.get_absolute_url }}">
                   <img src="{% if item.product.image %}
                   {{ item.product.image.url }}{% else %}
-                  {% static 'images/no-image.jpeg'%}{% endif %}"
-                       style="max-width: 100px; height: 100px;"
-                       class="img-responsive">
+                  {% static 'images/no-image.jpeg'%}{% endif %}">
                 </a>
               </td>
               <td>{{ item.product.name }}</td>

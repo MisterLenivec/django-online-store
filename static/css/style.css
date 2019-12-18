@@ -261,7 +261,7 @@ main div.success {
 .alert {
   position: relative;
   padding: .75rem 1.25rem;
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
   border: 1px solid transparent;
   border-radius: .25rem;
   text-align: center;
@@ -488,6 +488,9 @@ input[name="card_paid"] + label:before {
 }
 input[name="card_paid"]:checked + label:before {
   color: #212529;
+}
+div#div_id_card_paid > label {
+  cursor: pointer;
 }
 
 /*Button for opening a coupon---------------------------------*/
@@ -772,6 +775,8 @@ a.first_page {
   width: 300px;
   justify-content: center;
 }
+/*Это в принципе и не нужно,
+все картинки сохраняются с разрешением 300*300*/
 .profile_img_container img {
   max-width: 300px;
   max-height: 300px;
@@ -802,6 +807,54 @@ a.first_page {
 .profile_links > a > i {
   margin-right: 5px;
 }
+/*Phone and image change--------------------------------------*/
+.phone_img_form > div > label > span.asteriskField,
+.custom-file > .custom-file-label {
+  display: none;
+}
+.phone_img_form {
+  line-height: 2;
+}
+.img_phone_instructions {
+  text-align: center;
+  margin: 1rem .5rem;
+}
+.profile_username {
+  text-align: center;
+  margin: 1rem 0;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid #dee2e6;
+}
+/*Ordered_goods------------------------------------------*/
+.goods_table {
+  text-align: center;
+  margin-bottom: .5rem;
+}
+h3.goods_title {
+  text-align: left;
+}
+.goods_title {
+  text-align: center;
+  margin: 1rem .5rem;
+}
+.goods_table th {
+  padding: 10px 0;
+  border-top: 1px solid #dee2e6;
+  border-bottom: 3px solid #dee2e6;
+}
+.goods_table > tbody  > tr > td {
+  padding: 5px 0;
+}
+.goods_table > tbody  > tr > td > a > img {
+  max-width: 100px;
+  max-height: 100px;
+  user-select: none;
+}
+.goods_table > tbody  > tr > td > a {
+  display: flex;
+  justify-content: center;
+  height: 100px;
+}
 
 /*Others------------------------------------------------------*/
 .products_margin {
@@ -814,6 +867,17 @@ a.first_page {
   padding-bottom: .3rem;
   color: #454545;
   border-bottom: 1px solid #dee2e6;
+}
+.order_title {
+  margin: .5rem 0;
+}
+.little_message {
+  text-align: center;
+  margin: 20px 5px;
+}
+.payment_type {
+  text-align: center;
+  margin: 30px 0;
 }
 
 @media all and (max-width: 1200px) {
@@ -1021,6 +1085,9 @@ a.first_page {
   .profile_links a {
     font-weight: 600;
     font-size: 85%;
+  }
+  .goods_table {
+    font-size: 80%;
   }
 }
 

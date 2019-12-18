@@ -3,30 +3,31 @@
 {% block title %}Заказ принят в обработку{% endblock %}
 
 {% block content %}
-    <h1>Заказ принят в обработку</h1>
-    <p>Благодарим вас за заказ!</p>
-    <p>
+  <div class="content-section">
+    <h2 class="page_title">Заказ принят в обработку</h2>
+    <h3 class="order_title">Благодарим вас за заказ!</h3>
+    <p class="products_margin">
       Номер заказа: <b>{{ order.id }}</b> <br>
-      <span class="secondary">
+      <span>
         {{ order.created }}
       </span>
     </p>
-    <h3>Покупатель</h3>
-    <p>
+    <h3 class="order_title">Покупатель</h3>
+    <p class="products_margin">
       {{ order.first_name }} {{ order.last_name }}<br>
-<!--      {{ order.phone_order }} <br>-->
-<!--      {{ order.email }} <br>-->
+      {{ order.phone_order }} <br>
+      {{ order.email }} <br>
       {{ order.address }} <br>
       {{ order.postal_code }}, {{ order.city }}
     </p>
-    <h3>Заказанные товары</h3>
-    <table class="table" style="text-align: center;">
+    <h3 class="order_title">Заказанные товары</h3>
+    <table class="goods_table">
       <thead>
         <tr>
           <th>Изображение</th>
           <th>Товар</th>
           <th>Стоймость</th>
-          <th>Количество</th>
+          <th>Кол.</th>
           <th>Всего</th>
         </tr>
       </thead>
@@ -35,41 +36,32 @@
           <tr class="row{% cycle '1' '2' %}">
             <td>
               <a href="{{ item.product.get_absolute_url }}">
-                <img src="{{ item.product.image.url }}"
-                     style="max-width: 150px; height: 150px; alt="" />
+                <img src="{{ item.product.image.url }}" alt="" />
               </a>
             </td>
             <td>{{ item.product.name }}</td>
-            <td>{{ item.price }}руб.</td>
+            <td>{{ item.price }} руб.</td>
             <td>{{ item.quantity }}</td>
-            <td>{{ item.get_cost }}руб.</td>
+            <td>{{ item.get_cost }} руб.</td>
           </tr>
         {% endfor %}
-        {% if cart.cupon %}
-            "{{ cart.cupon.code }}" купон на ({{ cart.cupon.discount }} % ниже)
-        {% endif %}
-        {% if order.cupon %}
-          <tr class="subtotal">
-            <td>Сумма без скидки</td>
-            <td colspan="2"></td>
-            <td>{{ order.get_total_cost_no_sale }}</td>
-          </tr>
-          <tr>
-            <td>
-              "{{ order.cupon.code }}" купон на
-              ({{ order.cupon.discount }} % ниже)
-            </td>
-            <td colspan="2"></td>
-            <td class="num discount">
-              - {{ order.get_order_discount|floatformat:"2" }} руб.
-            </td>
-          </tr>
-        {% endif %}
-        <tr class="total" style="text-align: left;">
-          <td colspan="3">Всего:</td>
-          <td class="num">{{ order.get_total_cost }}руб.</td>
-        </tr>
       </tbody>
     </table>
-    <span>Оплата при получении</span>
+    <ul class="products_margin">
+      {% if order.cupon %}
+        <li>
+          Сумма без скидки: <span>  {{ order.get_total_cost_no_sale }} руб.</span>
+        </li>
+        <li>
+          "{{ order.cupon.code }}" купон на ({{ order.cupon.discount }} % ниже)
+          <span> - {{ order.get_order_discount|floatformat:"2" }} руб.</span>
+        </li>
+      {% endif %}
+    </ul>
+    <p>
+      <strong>Всего: </strong>
+      {{ order.get_total_cost|floatformat:"2" }}руб.
+    </p>
+    <h3>Оплата при получении</h3>
+  </div>
 {% endblock %}

@@ -3,12 +3,14 @@
 {% block title %}Оплата PayPal{% endblock %}
 
 {% block content %}
-  <div>
-    <h1>Оплата PayPal</h1>
-    {{ form.render }}
+  <div class="content-section">
+    <h2 class="page_title">Оплата PayPal</h2>
+    <div class="payment_type">
+      {{ form.render }}
+    </div>
   </div>
-  <div>
-    <h1>Оплата картой или яндекс деньги</h1>
+  <div class="content-section">
+    <h2 class="page_title">Оплата картой или яндекс деньги</h2>
 <!--    <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">-->
 <!--      <input type="hidden" name="receiver" value="41001xxxxxxxxxxxx">-->
 <!--      <input type="hidden" name="formcomment" value="Покупка в Lenivastore">-->
@@ -27,7 +29,9 @@
 <!--      <label><input type="radio" name="paymentType" value="AC">Банковской картой</label>-->
 <!--      <input type="submit" value="Перевести">-->
 <!--    </form>-->
-    <iframe src="https://money.yandex.ru/quickpay/shop-widget?writer=seller&targets=%D0%9F%D0%BE%D0%BA%D1%83%D0%BF%D0%BA%D0%B0%20%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D0%B0&targets-hint=&default-sum={{order.get_total_cost}}&button-text=11&payment-type-choice=on&hint=&successURL=https%3A%2F%2F127.0.0.1%3A9000%2Fpayment%2Fdone.html&quickpay=shop&account=4100110955783875" width="100%" height="226" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+    <div class="payment_type">
+      <iframe src="https://money.yandex.ru/quickpay/shop-widget?writer=seller&targets=%D0%9F%D0%BE%D0%BA%D1%83%D0%BF%D0%BA%D0%B0%20%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D0%B0&targets-hint=&default-sum={{order.get_total_cost}}&button-text=11&payment-type-choice=on&hint=&successURL=https%3A%2F%2F127.0.0.1%3A9000%2Fpayment%2Fdone.html&quickpay=shop&account=4100110955783875" width="100%" height="226" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+    </div>
   </div>
 
 {% endblock %}
