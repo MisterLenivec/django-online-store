@@ -1,11 +1,10 @@
 {% extends "lenivastore/base.html" %}
 
 {% block content %}
-<h2>Вы вышли из системы</h2>
-
-<div class="border-top pt-3">
-  <small class="text-muted">
-    <a href="{% url 'login' %}" class="ml-2">Войти снова</a>
-  </small>
+<div class="content-section">
+  <h2 class="page_title">Вы вышли из системы</h2>
+  <p class="little_message">
+    <a href="{% url 'login' %}">Войти снова</a>
+  </p>
 </div>
 {% endblock %}

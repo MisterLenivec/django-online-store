@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster|Open+Sans|Satisfy&display=swap&subset=cyrillic" rel="stylesheet">
   <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}"
         type="image/x-icon">
-<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
   <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
   <link rel="stylesheet"
         href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
@@ -17,6 +16,66 @@
   <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+  <script src="https://yastatic.net/browser-updater/v1/script.js"
+          charset="utf-8"></script>
+  <script>
+      var yaBrowserUpdater = new ya.browserUpdater.init(
+      {
+          "lang":"ru",
+          "browsers":
+          {
+              "yabrowser":"16.12",
+              "chrome":"57",
+              "ie":"11",
+              "opera":"43",
+              "safari":"10.2",
+              "fx":"53",
+              "iron":"35",
+              "flock":"Infinity",
+              "palemoon":"25",
+              "camino":"Infinity",
+              "maxthon":"4.5",
+              "seamonkey":"2.3"
+          },
+          "theme":"yellow"
+      });
+  </script>
+  <!--[if lte IE 9]>
+    <style>
+      main {
+        display: block;
+        min-height: 100%;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      nav.bottom_header ul.nav_links {
+        padding-bottom: 10px;
+      }
+      .card_image_container {
+        padding-top: 27%;
+      }
+
+      @media all and (max-width: 600px) {
+        body {
+          overflow-x: hidden;
+        }
+        .top_header, nav.bottom_header ul.nav_links {
+          display: block;
+        }
+      }
+
+      @media all and (max-width: 420px) {
+        .card_image_container {
+          padding-top: 100%;
+        }
+        .card_list_wrapper {
+          grid-gap: 0;
+        }
+      }
+    </style>
+  <![endif]-->
+
   <div class="wrapper" id="base_wrapper">
     <header id="header">
       <span id="menu_header">
