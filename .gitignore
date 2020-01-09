@@ -1,8 +1,6 @@
 .idea
 *.pyc
-/onstore/
 /media/
-/staticfiles/
 
 # vim
 *.swp
