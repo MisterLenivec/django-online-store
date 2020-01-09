@@ -1,0 +1,1 @@
+web: gunicorn django-online-store.wsgi

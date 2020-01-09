@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -185,3 +186,5 @@ AWS_S3_REGION_NAME = os.environ.get('my_aws_s3_region_name')
 AWS_S3_SIGNATURE_VERSION = os.environ.get('my_aws_s3_signature_version')
 
 DEFAULT_FILE_STORAGE = os.environ.get('my_default_file_storage')
+
+django_heroku.settings(locals())
