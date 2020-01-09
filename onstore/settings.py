@@ -35,8 +35,8 @@ SECURE_SSL_REDIRECT = os.environ.get('my_secure_ssl_redirect') == 'True'
 SECURE_HSTS_SECONDS = int(os.environ.get('my_hsts_seconds'))
 SECURE_HSTS_PRELOAD = os.environ.get('my_secure_hsts_preload') == 'True'
 
-# ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-ALLOWED_HOSTS = ['*']
+
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'crispy_forms',
     'phonenumber_field',
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -67,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'onstore.urls'
@@ -150,10 +152,9 @@ LOGIN_URL = 'login'
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-# Куда сткладываем после collectstatic
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# Где ищем
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
@@ -161,6 +162,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CART_SESSION_ID = 'cart'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 EMAIL_BACKEND = os.environ.get('my_email_backend')
 EMAIL_HOST = os.environ.get('my_email_host')
