@@ -30,8 +30,8 @@
           {% for item in order.items.all %}
             <tr class="row{% cycle '1' '2' %}">
               <td>
-                <a href="https://lenivastore.herokuapp.com{{ item.product.get_absolute_url }}">
-                  <img src="https://lenivastore.herokuapp.com{{ item.product.image.url }}"
+                <a href="{{ item.product.get_absolute_url }}">
+                  <img src="{{ item.product.image.url }}"
                        alt="" />
                 </a>
               </td>
