@@ -54,16 +54,6 @@
     .goods_table > tbody  > tr > td {
       padding: 5px 0;
     }
-    .goods_table > tbody  > tr > td > a > img {
-      max-width: 100px;
-      max-height: 100px;
-      user-select: none;
-    }
-    .goods_table > tbody  > tr > td > a {
-      display: flex;
-      justify-content: center;
-      height: 100px;
-    }
     .order_title {
       margin: .5rem 0;
     }
@@ -89,7 +79,6 @@
     <table class="goods_table">
       <thead>
         <tr>
-          <th>Изображение</th>
           <th>Товар</th>
           <th>Стоймость</th>
           <th>Кол.</th>
@@ -99,12 +88,6 @@
       <tbody>
         {% for item in order.items.all %}
           <tr class="row{% cycle '1' '2' %}">
-            <td>
-              <a href="{{ item.product.get_absolute_url }}">
-                <img src="{{ item.product.image.url }}"
-                     alt="" />
-              </a>
-            </td>
             <td>{{ item.product.name }}</td>
             <td>{{ item.price }} руб.</td>
             <td>{{ item.quantity }}</td>
