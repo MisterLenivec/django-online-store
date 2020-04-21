@@ -52,7 +52,7 @@ def payment_done(request):
     out = BytesIO()
     weasyprint.HTML(string=html).write_pdf(out,
                             stylesheets=[weasyprint.CSS(
-                            settings.STATIC_ROOT + 'css/bootstrap.min.css')])
+                            settings.STATIC_ROOT + 'css/style.css')])
     msg = EmailMultiAlternatives(subject, message,
                                  settings.EMAIL_HOST_USER, [order.email],
                                  connection=connection)
