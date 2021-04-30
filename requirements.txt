@@ -35,7 +35,7 @@ s3transfer==0.1.13
 six==1.13.0
 sqlparse==0.3.1
 tinycss2==1.0.2
-urllib3==1.25.7
+urllib3==1.25.8
 uuid==1.30
 WeasyPrint==50
 webencodings==0.5.1
